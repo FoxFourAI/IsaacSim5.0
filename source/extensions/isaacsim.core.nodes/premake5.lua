@@ -38,13 +38,13 @@ add_ogn_dependencies(ogn, { "python/nodes" })
 include_physx()
 
 includedirs {
+    "%{root}/source/extensions/omni.isaac.dynamic_control/include",
     "%{root}/source/extensions/isaacsim.core.includes/include",
     "%{root}/source/extensions/isaacsim.core.simulation_manager/include",
     "%{root}/_build/target-deps/usd/%{cfg.buildcfg}/include",
     "%{root}/_build/target-deps/usd/%{cfg.buildcfg}/include/boost",
     "%{root}/_build/target-deps/usd_ext_physics/%{cfg.buildcfg}/include",
     "%{root}/_build/target-deps/python/include/python3.11",
-    "%{root}/source/deprecated/omni.isaac.dynamic_control/include",
     "%{root}/_build/target-deps/omni_client_library/include",
     "%{root}/_build/target-deps/omni_physics/%{config}/include",
     extsbuild_dir .. "/omni.syntheticdata/include",

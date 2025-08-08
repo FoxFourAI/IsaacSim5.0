@@ -32,7 +32,7 @@ includedirs {
     target_deps .. "/usd_ext_physics/%{cfg.buildcfg}/include",
     target_deps .. "/omni_physics/%{config}/include",
     target_deps .. "/omni_client_library/include",
-    "%{root}/source/deprecated/omni.isaac.dynamic_control/include",
+    "%{root}/source/extensions/omni.isaac.dynamic_control/include",
 }
 libdirs {
     target_deps .. "/usd/%{cfg.buildcfg}/lib",
@@ -82,7 +82,7 @@ project_ext_bindings {
 staticruntime("Off")
 
 includedirs {
-    "%{root}/source/deprecated/omni.isaac.dynamic_control/include",
+    "%{root}/source/extensions/omni.isaac.dynamic_control/include",
     "%{root}/source/extensions/isaacsim.core.includes/include",
     "%{root}/_build/target-deps/usd/%{cfg.buildcfg}/include",
 }

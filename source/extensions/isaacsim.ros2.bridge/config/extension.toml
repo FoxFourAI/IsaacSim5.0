@@ -54,9 +54,9 @@ name = "isaacsim.ros2.bridge.impl.og_shortcuts.og_shortcut_menu"
 
 [settings]
 # ROS 2 distributions to fallback onto if none were sourced.
-exts."isaacsim.ros2.bridge".ros_distro = "humble"
+exts."isaacsim.ros2.bridge".ros_distro = "jazzy"
 # Whether ROS 2 publishers are allowed to publish even if there is no active subscription for their topics.
-exts."isaacsim.ros2.bridge".publish_without_verification = false
+exts."isaacsim.ros2.bridge".publish_without_verification = true
 # Whether to disable multithreading use in the *ROS2PublishImage* OmniGraph node.
 exts."isaacsim.ros2.bridge".publish_multithreading_disabled = false
 
@@ -131,7 +131,7 @@ args = [
     "--/app/runLoops/main/rateLimitEnabled=false",
     "--/app/runLoops/main/manualModeEnabled=true",
     ### Extension specific args
-    '--/exts/isaacsim.ros2.bridge/ros_distro = "humble"',
+    '--/exts/isaacsim.ros2.bridge/ros_distro = "jazzy"',
     "--/exts/isaacsim.ros2.bridge/publish_without_verification=1",
 
 ]

@@ -13,6 +13,11 @@ writeTarget.kit = true
 [deprecation]
 warning = "Extension deprecated since Isaac Sim 4.5.0."
 
+[cpp.includes]
+paths = [
+  "/home/nataliy/Downloads/isaacsim/source/extensions/omni.isaac.dynamic_control/include/"
+]
+
 [dependencies]
 "omni.kit.commands" = {}
 "omni.kit.numpy.common" = {}

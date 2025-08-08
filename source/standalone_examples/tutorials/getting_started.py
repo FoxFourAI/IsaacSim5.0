@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2021-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+SPDX-FileCopyrightText: Copyright (c) 2021-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,30 +22,52 @@ import omni.usd
 from isaacsim.core.api import World
 from isaacsim.core.api.objects import DynamicCuboid, VisualCuboid
 from isaacsim.core.api.objects.ground_plane import GroundPlane
-from pxr import Sdf, UsdLux
+from omni.isaac.core.utils.stage import open_stage
+from pxr import Sdf, UsdLux, UsdGeom
 
-# Add Ground Plane
-GroundPlane(prim_path="/World/GroundPlane", z_position=0)
+
+# Add Rivermark
+rivermark_path = "/home/nataliy/Downloads/isaac-sim-assets-1@4.2.0-rc.18+release.16044.3b2ed111/Assets/Isaac/4.2/Isaac/Environments/Outdoor/Rivermark/rivermark.usd"
+# open_stage(rivermark_path)
+
+# Set up World
+my_world = World(stage_units_in_meters=1.0)
+
+# Add a Ground Plane
+GroundPlane(prim_path="/World/GroundPlane", z_position=0.0)
 
 # Add Light Source
 stage = omni.usd.get_context().get_stage()
 distantLight = UsdLux.DistantLight.Define(stage, Sdf.Path("/DistantLight"))
 distantLight.CreateIntensityAttr(300)
 
+# Make camera follow dynamic_cube
+camera_path = "/FollowCam"
+if not stage.GetPrimAtPath(camera_path):
+    camera = UsdGeom.Camera.Define(stage, Sdf.Path(camera_path))
+    camera.AddTranslateOp()
+    camera.AddRotateXYZOp()
+else:
+    camera = UsdGeom.Camera(stage.GetPrimAtPath(camera_path))
+
+from isaacsim.core.prims import XFormPrim
+
+camera_prim = XFormPrim(camera_path)
+
 # Add Visual Cubes
 visual_cube = VisualCuboid(
     prim_path="/visual_cube",
     name="visual_cube",
-    position=np.array([0, 0.5, 1.0]),
-    size=0.3,
+    position=np.array([0, 0, 10.0]),
+    size=1,
     color=np.array([255, 255, 0]),
 )
 
 visual_cube_static = VisualCuboid(
     prim_path="/visual_cube_static",
     name="visual_cube_static",
-    position=np.array([0.5, 0, 0.5]),
-    size=0.3,
+    position=np.array([0.5, 0, 15.0]),
+    size=2,
     color=np.array([0, 255, 0]),
 )
 
@@ -53,13 +75,10 @@ visual_cube_static = VisualCuboid(
 dynamic_cube = DynamicCuboid(
     prim_path="/dynamic_cube",
     name="dynamic_cube",
-    position=np.array([0, -0.5, 1.5]),
-    size=0.3,
+    position=np.array([0, 0, 25]),
+    size=3,
     color=np.array([0, 255, 255]),
 )
-
-# start a world to step simulator
-my_world = World(stage_units_in_meters=1.0)
 
 # start the simulator
 for i in range(3):
@@ -79,7 +98,14 @@ for i in range(3):
         prim.apply_collision_apis()
 
     for j in range(100):
-        my_world.step(render=True)  # stepping through the simulation
+        my_world.step(render=True)  # stepping through the simulation.
+
+        # cube_pos = visual_cube.get_world_pose()[0]
+        # camera_pos = cube_pos + np.array([0.0, 2.0, 5.0])
+        # camera_prim.set_world_pose(position=camera_pos)
 
 # shutdown the simulator automatically
-simulation_app.close()
+# simulation_app.close()
+
+while simulation_app.is_running():
+    simulation_app.update()

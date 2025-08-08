@@ -17,6 +17,7 @@
 
 #include <string>
 #include <vector>
+#include <stdint.h>
 
 #ifndef _WIN32
 #    include <sys/stat.h>

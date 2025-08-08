@@ -12,6 +12,7 @@ writeTarget.kit = true
 writeTarget.platform = true
 
 [dependencies]
+"omni.isaac.dynamic_control" = {}
 "isaacsim.core.deprecation_manager" = {}
 "isaacsim.storage.native" = {}
 "omni.isaac.dynamic_control" = {}
@@ -23,6 +24,11 @@ writeTarget.platform = true
 "omni.usd.schema.semantics" = {}
 "omni.usdphysics" = {}
 "omni.warp.core" = {}
+
+[cpp.includes]
+paths = [
+  "/home/nataliy/Downloads/isaacsim/source/extensions/omni.isaac.dynamic_control/include"
+]
 
 [[python.module]]
 name = "isaacsim.core.utils"
