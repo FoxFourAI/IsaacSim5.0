@@ -15,7 +15,6 @@ writeTarget.platform = true
 "omni.isaac.dynamic_control" = {}
 "isaacsim.core.deprecation_manager" = {}
 "isaacsim.storage.native" = {}
-"omni.isaac.dynamic_control" = {}
 "omni.isaac.ml_archive" = {}
 "omni.physics.tensors" = {}
 "omni.physx" = {}
